@@ -1,0 +1,71 @@
+GROUP_ID =
+TOKEN = ''
+
+INTENTS = [
+    {
+        "name": "Приветствие",
+        "tokens": ("привет", "здарова", "здравствуй", "здорово", "хай", "шалом"),
+        "scenario": None,
+        "answer": "Доброго времени суток и вам.",
+    },
+    {
+        "name": "Дата проведения",
+        "tokens": ("когда", "сколько", "дата", "дату"),
+        "scenario": None,
+        "answer": "Мероприятие проводится 22 апреля, регистрация начнется в 15:15 дня.",
+    },
+    {
+        "name": "Место проведения",
+        "tokens": ("где", "место", "локация", "адресс", "метро"),
+        "scenario": None,
+        "answer": "Встреча пройдет в частном секторе. На вилле у озера.",
+    },
+    {
+        "name": "Регистрация",
+        "tokens": ("добав", "регистр"),
+        "scenario": "registration",
+        "answer": None,
+    },
+]
+
+SCENARIOS = {
+    "registration": {
+        "first_step": "step1",
+        "steps": {
+            "step1": {
+                "text": "Чтобы зарегестрироваться, введите ваше имя. Оно будет написано в пригласительном",
+                "failure_text": "Имя должно состоять из 3-40 букв и дефиса. Попробуйте еще раз",
+                "handler": "handle_name",
+                "next_step": "step2"
+            },
+            "step2": {
+                "text": "Введите email. Мы отправим на него все данные.",
+                "failure_text": "Имя почты не валидно. Попробуйте еще раз",
+                "handler": "handle_email",
+                "next_step": "step3"
+            },
+            "step3": {
+                "text": "Спасибо за регистрацию, {name}. Мы отправили на {email} проходку, которую видите ниже."
+                        ". Распечатайте её.",
+                "image": "generate_ticket_handler",
+                "failure_text": None,
+                "handler": None,
+                "next_step": None
+            },
+        }
+    }
+
+}
+
+DEFAULT_ANSWER = 'Не знаю что ты хочешь от меня!' \
+                 'Могу подсказать когда и где пройдет тусовка. Просто спроси...'
+
+DB_CONFIG = dict(
+    provider='postgres',
+    user='',
+    host='localhost',
+    port='',
+    database='vk_chat_bot'
+)
+
+
